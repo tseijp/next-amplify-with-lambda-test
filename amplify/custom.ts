@@ -21,9 +21,9 @@ export class VpcLambdaStack extends Construct {
       vpc,
     });
 
-    new cdk.CfnOutput(this, "VpcLambdaFunctionArn", {
+    new cdk.CfnOutput(this, "VpcLambdaFunctionArnNext", {
       value: fn.functionArn,
-      exportName: "VpcLambdaFunctionArn",
+      exportName: "VpcLambdaFunctionArnNext",
     });
   }
 }

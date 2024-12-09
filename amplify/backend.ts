@@ -1,14 +1,14 @@
 import { defineBackend } from "@aws-amplify/backend";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import { VpcLambdaStack } from "./custom/VPCLambda/resource";
-import { auth } from "./auth/resource";
+// import { auth } from "./auth/resource";
 // import { data } from './data/resource';
 
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
 const backend = defineBackend({
-  auth,
+  // auth,
   // data,
 });
 

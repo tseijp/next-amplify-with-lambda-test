@@ -17,7 +17,7 @@ export default class VpcLambda extends Construct {
 
     new NodejsFunction(this, "VpcLambdaFunction", {
       filesystem: lambda.FileSystem.fromEfsAccessPoint(accessPoint, "/mnt/db"),
-      entry: "amplify/custom/VpcLambda/handler.mjs",
+      entry: "amplify/custom/VpcLambda/handler.ts",
       handler: "handler",
       runtime: lambda.Runtime.NODEJS_18_X,
       vpc,

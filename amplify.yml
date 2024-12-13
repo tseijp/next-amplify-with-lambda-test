@@ -1,0 +1,24 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - env | grep -e VPC_AWS_ACCESS_KEY_ID >> .env
+        - env | grep -e VPC_AWS_SECRET_ACCESS_KEY >> .env
+        - env | grep -e VPC_LAMBDA_AWS_REGION >> .env
+        - env | grep -e VPC_LAMBDA_FUNCTION_NAME >> .env
+        - npm ci --cache .npm --prefer-offline
+        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+frontend:
+  phases:
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - .npm/**/*

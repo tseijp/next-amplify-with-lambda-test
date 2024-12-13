@@ -28,9 +28,6 @@ export default class VpcLambda extends Construct {
       },
     });
 
-    new cdk.CfnOutput(this, "VpcLambdaFunctionArn", {
-      value: fn.functionArn,
-      exportName: "VpcLambdaFunctionArn",
-    });
+    new cdk.CfnOutput(this, "VpcLambdaFunctionArn", { value: fn.functionArn });
   }
 }

@@ -6,19 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "serve": "RUNTIME_ENV=serve npx tsx watch handler.ts",
+    "test": "RUNTIME_ENV=local npx jest --watch",
+    "e2e": "RUNTIME_ENV=local npx playwright test",
+    "lint": "next lint",
+    "format": "npx prettier src --write"
   },
   "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@hono/zod-validator": "^0.4.1",
     "aws-amplify": "^6.10.3",
     "hono": "^4.6.13",
+    "jest": "^29.7.0",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.9.0",
     "@aws-amplify/backend-cli": "^1.4.3",
+    "@playwright/test": "^1.49.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

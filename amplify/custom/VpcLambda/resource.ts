@@ -1,3 +1,4 @@
+// amplify/custom/VPCLambda/resource.ts
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as efs from "aws-cdk-lib/aws-efs";

@@ -46,9 +46,11 @@ interface Item {
   id: number;
   title: string;
   content: string;
-  created_at: string;
   display_start: string;
   display_end: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
   target_stage: string;
 }
 

@@ -1,6 +1,7 @@
 /**
  * ref
  * https://github.com/honojs/hono/blob/main/src/helper/testing/index.ts
+ * https://github.com/honojs/hono/blob/main/src/client/client.ts
  * https://developers.cloudflare.com/workers/examples/logging-headers/
  */
 import { AppType } from "@/handler";
@@ -32,8 +33,8 @@ const customFetch = async (path: RequestInfo | URL, init?: RequestInit) => {
 
   const res = await lambda.invoke(args);
   const buf = Buffer.from(res.Payload!);
-  const data = buf.toString();
-  return new Response(data);
+  const obj = JSON.parse(buf.toString());
+  return new Response(obj.body);
 };
 
 export const invoker = () => hc<AppType>("", { fetch: customFetch });

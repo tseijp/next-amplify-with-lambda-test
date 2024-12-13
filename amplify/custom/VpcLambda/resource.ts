@@ -21,6 +21,9 @@ export default class VpcLambda extends Construct {
       handler: "handler",
       runtime: lambda.Runtime.NODEJS_18_X,
       vpc,
+      bundling: {
+        nodeModules: ["sqlite3"],
+      },
     });
   }
 }

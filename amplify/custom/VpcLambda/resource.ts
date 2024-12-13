@@ -1,3 +1,4 @@
+import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as efs from "aws-cdk-lib/aws-efs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
@@ -15,15 +16,20 @@ export default class VpcLambda extends Construct {
 
     const { vpc, accessPoint } = props;
 
-    new NodejsFunction(this, "VpcLambdaFunction", {
+    const fn = new NodejsFunction(this, "VpcLambdaFunction", {
       filesystem: lambda.FileSystem.fromEfsAccessPoint(accessPoint, "/mnt/db"),
-      entry: "amplify/custom/VpcLambda/handler.ts",
+      entry: "handler.ts",
       handler: "handler",
       runtime: lambda.Runtime.NODEJS_18_X,
       vpc,
       bundling: {
         nodeModules: ["sqlite3"],
       },
+    });
+
+    new cdk.CfnOutput(this, "VpcLambdaFunctionArn", {
+      value: fn.functionArn,
+      exportName: "VpcLambdaFunctionArn",
     });
   }
 }

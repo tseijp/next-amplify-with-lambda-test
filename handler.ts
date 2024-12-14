@@ -6,7 +6,6 @@ import { handle } from "hono/aws-lambda";
 import sqlite3 from "sqlite3";
 import { z } from "zod";
 
-
 const isLocal = process.env.RUNTIME_ENV === "local";
 const isServe = process.env.RUNTIME_ENV === "serve";
 const DB_PATH = isLocal || isServe ? "./db.sqlite3" : "/mnt/db/db.sqlite";

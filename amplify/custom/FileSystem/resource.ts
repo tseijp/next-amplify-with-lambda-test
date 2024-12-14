@@ -15,7 +15,7 @@ export default class FileSystem extends Construct {
 
     const { vpc } = props;
 
-    const fileSystem = new efs.FileSystem(this, "phoquashFileSystem", {
+    const fileSystem = new efs.FileSystem(this, "FileSystem", {
       vpc: vpc,
       lifecyclePolicy: efs.LifecyclePolicy.AFTER_14_DAYS,
       performanceMode: efs.PerformanceMode.GENERAL_PURPOSE,

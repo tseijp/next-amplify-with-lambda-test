@@ -4,43 +4,16 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 import sqlite3 from "sqlite3";
+import { all, one, run } from "./utils";
 import { z } from "zod";
-
 
 const isLocal = process.env.RUNTIME_ENV === "local";
 const isServe = process.env.RUNTIME_ENV === "serve";
 const DB_PATH = isLocal || isServe ? "./db.sqlite3" : "/mnt/db/db.sqlite";
 
-const app = new Hono();
+export const app = new Hono();
 
-const db = new sqlite3.Database(DB_PATH);
-
-export async function all<T>(query: string, ...args: any[]) {
-  return new Promise<T>((resolve, reject) => {
-    db.all(query, args, function (err, rows) {
-      if (err) return reject(err);
-      else resolve(rows as T);
-    });
-  });
-}
-
-async function one<T>(q: string, ...args: any[]) {
-  return new Promise<T>((resolve, reject) => {
-    db.get(q, args, function (err, rows) {
-      if (err) return reject(err);
-      else resolve(rows as T);
-    });
-  });
-}
-
-async function run(q: string, ...args: any[]): Promise<number> {
-  return new Promise((resolve, reject) => {
-    db.run(q, args, function (err) {
-      if (err) return reject(err);
-      else resolve(this.lastID);
-    });
-  });
-}
+export const db = new sqlite3.Database(DB_PATH);
 
 interface Item {
   id: number;

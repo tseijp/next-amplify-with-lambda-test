@@ -17,7 +17,7 @@ export default class VpcLambda extends Construct {
 
     const { vpc, accessPoint } = props;
 
-    const fn = new NodejsFunction(this, "VpcLambdaFunction", {
+    const { functionArn } = new NodejsFunction(this, "VpcLambda", {
       filesystem: lambda.FileSystem.fromEfsAccessPoint(accessPoint, "/mnt/db"),
       entry: "handler.ts",
       handler: "handler",
@@ -28,6 +28,6 @@ export default class VpcLambda extends Construct {
       },
     });
 
-    new cdk.CfnOutput(this, "VpcLambdaFunctionArn", { value: fn.functionArn });
+    new cdk.CfnOutput(this, "VpcLambdaFunctionArn", { value: functionArn });
   }
 }

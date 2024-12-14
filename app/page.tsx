@@ -1,5 +1,7 @@
 import { invoker } from "@/invoker";
 
+const isNoEnv = !process.env.VPC_LAMBDA_AWS_REGION;
+
 const app = invoker();
 
 const padding = (value: string | number = 0, length = 2, target = "0") => {
@@ -18,6 +20,9 @@ function formatTime(time: string) {
 }
 
 export default async function Home() {
+  if (isNoEnv)
+    return "Error: Environment variable not set in local or amplify console";
+
   const res = await app.index.$get();
   const data = await res.json();
 

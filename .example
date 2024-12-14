@@ -1,0 +1,5 @@
+# .env.local
+VPC_AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxxxx
+VPC_AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+VPC_LAMBDA_AWS_REGION=ap-northeast-1
+VPC_LAMBDA_FUNCTION_NAME=amplify-xxxxxxxxxxxxxx-xx-xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxx

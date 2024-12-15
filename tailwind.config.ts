@@ -9,8 +9,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        cavernous: "var(--cavernous)",
+        "shoe-wax": "var(--shoe-wax)",
+        "goshawk-grey": "var(--goshawk-grey)",
+        "out-of-the-blue": "var(--out-of-the-blue)",
+        "whitest-white": "var(--whitest-white)",
       },
     },
   },

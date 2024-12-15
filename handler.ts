@@ -24,6 +24,7 @@ interface Item {
   created_at: string;
   updated_at: string;
   deleted_at: string;
+  created_by: string;
   target_stage: string;
 }
 

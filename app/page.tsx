@@ -5,7 +5,7 @@ import Wheelable from "./_client/Wheelable";
 import Bounding from "./_client/Bounding";
 import { ZoomPercent } from "./_hooks/useZoomStore";
 import Link from "next/link";
-import { Stage } from "./[stage]/page";
+import Demo from "./[stage]/demo";
 
 const isNoEnv = !process.env.VPC_LAMBDA_AWS_REGION;
 
@@ -92,7 +92,7 @@ export default async function Home(props: Props) {
       </aside>
       <main>
         <Bounding>
-          <Wheelable>{q ? <Stage msgId={q} /> : null}</Wheelable>
+          <Wheelable>{q ? <Demo msgId={q} /> : null}</Wheelable>
         </Bounding>
       </main>
       <aside className="right-0">

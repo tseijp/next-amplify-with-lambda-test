@@ -24,6 +24,7 @@ interface Item {
   created_at: string;
   updated_at: string;
   deleted_at: string;
+  created_by: string;
   target_stage: string;
 }
 
@@ -91,6 +92,13 @@ export const routes = app
     const id = await run(q, title, content);
     return c.json({ id }, 201);
   })
+  // get specific alert message
+  .get("/:id", async (c) => {
+    const id = c.req.param("id");
+    const q = /* SQL */ `SELECT * FROM items WHERE id = ?`;
+    const res = await one<Item>(q, id);
+    return c.json(res);
+  })
   // update the alert message and title
   .patch("/:id", zValidator("json", updateSchema), async (c) => {
     const { title, content } = await c.req.json();
@@ -131,7 +139,7 @@ export const routes = app
     return c.json({ message: "updated" });
   })
   // get to display the most current alert message based on stage
-  .get("/:stage", async (c) => {
+  .get("/stage/:stage", async (c) => {
     const stage = c.req.param("stage");
     const query = /* SQL */ `
       SELECT title, content FROM items
@@ -143,7 +151,7 @@ export const routes = app
       LIMIT 1;
     `;
     const res = await one<{ title: string; content: string }>(query, stage);
-    return c.json(res);
+    return c.json(res ?? {});
   });
 
 if (isServe) {

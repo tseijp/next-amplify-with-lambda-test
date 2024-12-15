@@ -48,7 +48,7 @@ const stages = ["develop", "release", "product"];
 
 stages.forEach((stage) => {
   test(`Retrieve message for ${stage} stage`, async () => {
-    const res = await app[":stage"].$get({ param: { stage } });
+    const res = await app.stage[":stage"].$get({ param: { stage } });
     expect(res.ok).toBeTruthy();
   });
 });

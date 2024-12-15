@@ -39,8 +39,9 @@ export default async function Home(props: Props) {
     return "Error: Environment variable not set in local or amplify console";
 
   const res = await app.index.$get();
-  const data = await res.json();
-  const target = q ? data.find((item) => `${item.id}` === q) : null;
+  const list = await res.json();
+  const target = q ? list.find((item) => `${item.id}` === q) : null;
+
   return (
     <>
       <nav>
@@ -74,14 +75,19 @@ export default async function Home(props: Props) {
           <input placeholder="Find..." />
         </div>
         <ul className="px-4 text-sm">
-          {data.map((item) => (
-            <li key={item.id} className="mt-4">
-              <Link href={`?q=${item.id}`} className="flex flex-col">
-                <span className="text-xs">{formatTime(item.created_at)}</span>
-                <span className="font-bold">{item.title}</span>
-              </Link>
-            </li>
-          ))}
+          {list.map((item) => {
+            const isActive = `${item.id}` === q;
+            const style = isActive ? {} : { opacity: 0.5 };
+            const href = isActive ? "/" : `?q=${item.id}`;
+            return (
+              <li key={item.id} className="mt-4" style={style}>
+                <Link href={href} className="flex flex-col">
+                  <span className="text-xs">{formatTime(item.created_at)}</span>
+                  <span className="font-bold">{item.title}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </aside>
       <main>
@@ -95,14 +101,14 @@ export default async function Home(props: Props) {
             {q ? "Update" : "New Creation"}
           </span>
         </div>
-        <h3 className="mx-4 mt-4 font-bold text-xs opacity-50">
-          Basic Setting
-        </h3>
+        <h3 className="mx-4 mt-4 font-bold text-xs">Basic Setting</h3>
         <form key={q} className="px-4" action={basicSetting.bind(null, q)}>
           <label>
             <span>title</span>
             <textarea
+              required
               name="title"
+              className="peer/title"
               placeholder="input here..."
               defaultValue={target?.title}
             />
@@ -110,7 +116,9 @@ export default async function Home(props: Props) {
           <label>
             <span>content</span>
             <textarea
+              required
               name="content"
+              className="peer/content"
               placeholder="input here..."
               defaultValue={target?.content}
             />
@@ -132,9 +140,7 @@ export default async function Home(props: Props) {
         {q ? (
           <>
             <div className="w-full h-[1px] bg-goshawk-grey" />
-            <h3 className="mx-4 mt-4 font-bold text-xs opacity-50">
-              Advanced Setting
-            </h3>
+            <h3 className="mx-4 mt-4 font-bold text-xs">Advanced Setting</h3>
             <form
               key={q}
               className="px-4"
@@ -142,8 +148,8 @@ export default async function Home(props: Props) {
             >
               <label>
                 <span>display start</span>
-                <input name="start_date" type="date" />
-                <input name="start_time" type="time" />
+                <input required name="start_date" type="date" />
+                <input required name="start_time" type="time" />
               </label>
               <label>
                 <span>display end</span>

@@ -67,7 +67,19 @@ input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(1) brightness(100);
 }
+/* Button styles based on form validity */
+form:invalid button {
+  /* Styles when any input in the form is invalid */
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
+form:valid button {
+  /* Styles when all inputs are valid */
+  opacity: 1;
+  cursor: pointer;
+}
 label {
   display: flex;
   flex-direction: column;
@@ -77,6 +89,7 @@ label {
 
 label > span {
   opacity: 0.5;
+  font-weight: 700;
 }
 
 button {

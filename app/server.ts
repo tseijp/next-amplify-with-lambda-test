@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { invoker } from "@/invoker";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const MessageSchema = z.object({
   title: z.string().min(1).max(100),
@@ -19,32 +20,35 @@ const DisplayTimeSchema = z.object({
 const app = invoker();
 
 export async function basicSetting(id: string, formData: FormData) {
-  const res = MessageSchema.safeParse({
+  const { success, data } = MessageSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
   });
 
-  if (!res.success) return;
+  if (!success) return;
 
-  const { title, content } = res.data;
+  const { title, content } = data;
 
-  if (!id) await app.index.$post({ json: { title, content } });
+  let res;
+  if (!id) res = await app.index.$post({ json: { title, content } });
   else await app[":id"].$patch({ param: { id }, json: { title, content } });
+
+  if (res) redirect(`/?q=${(await res.json()).id}`);
 
   revalidatePath("/");
 }
 
 export async function advancedSetting(id: string, formData: FormData) {
-  const res = DisplayTimeSchema.safeParse({
+  const { success, data } = DisplayTimeSchema.safeParse({
     start_date: formData.get("start_date"),
     start_time: formData.get("start_time"),
     end_date: formData.get("end_date"),
     end_time: formData.get("end_time"),
   });
 
-  if (!res.success) return;
+  if (!success) return;
 
-  const { start_date, start_time, end_date, end_time } = res.data;
+  const { start_date, start_time, end_date, end_time } = data;
 
   const display_start = new Date(`${start_date}T${start_time}`).toISOString();
   const display_end = new Date(`${end_date}T${end_time}`).toISOString();
@@ -55,4 +59,5 @@ export async function advancedSetting(id: string, formData: FormData) {
   });
 
   revalidatePath("/");
+
 }

@@ -25,7 +25,7 @@ const customFetch = async (path: RequestInfo | URL, init?: RequestInit) => {
     headers: Object.fromEntries(headers as []),
     isBase64Encoded: false,
   };
-
+console.log(JSON.stringify(payload));
   const args = {
     FunctionName: process.env.VPC_LAMBDA_FUNCTION_NAME,
     Payload: JSON.stringify(payload),

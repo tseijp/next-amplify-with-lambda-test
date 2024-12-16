@@ -55,9 +55,9 @@ export default async function Demo(props: Props) {
                 </span>
               </div>
               <div className="px-5 py-3 border border-[#EAAC34] rounded-b text-[#050505]">
-                <span className="font-bold">title</span>
+                <span className="font-bold">{data.title}</span>
                 <span className="mx-2">-</span>
-                <span>content</span>
+                <span>{data.content}</span>
               </div>
             </div>
           ) : (
